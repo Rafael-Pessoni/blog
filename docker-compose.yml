@@ -10,7 +10,7 @@ services:
     volumes:
       - sqlserver:/var/opt/mssql
 
-  blog:
+  api:
     build:
       context: .
       dockerfile: Dockerfile
@@ -21,6 +21,18 @@ services:
       - sqlserver
     environment:
         - ASPNETCORE_ENVIRONMENT=Staging
+
+  blog-dashboard:
+    image: mcr.microsoft.com/dotnet/aspire-dashboard:8.0.0
+    container_name: blog-dashboard
+    ports:
+      - 18888:18888
+      - 4317:18889
+    depends_on:
+      - sqlserver
+      - api
+    environment:
+      - DOTNET_DASHBOARD_UNSECURED_ALLOW_ANONYMOUS=true
 
 volumes:
   sqlserver:

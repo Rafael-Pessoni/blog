@@ -1,6 +1,10 @@
 using Blog.Api.Configurations;
 using Blog.Data.Context;
 using Microsoft.EntityFrameworkCore;
+using OpenTelemetry.Logs;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +18,43 @@ builder.Services.AddDbContext<BlogContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"));
 });
+
+// TODO: move to other file: open telemetry configuration
+var aspireDashboard = builder.Configuration.GetValue<string>("AspireDashboard:Url");
+if (!string.IsNullOrEmpty(aspireDashboard))
+{
+    builder.Services.AddOpenTelemetry()
+        .ConfigureResource((resource) => resource.AddService("Blog.Api"))
+        .WithMetrics(metrics =>
+        {
+            metrics
+                .AddAspNetCoreInstrumentation()
+                .AddHttpClientInstrumentation()
+                .AddOtlpExporter(option =>
+                {
+                    option.Endpoint = new Uri(aspireDashboard);
+                });
+        })
+        .WithTracing(tracing =>
+        {
+            tracing
+                .AddAspNetCoreInstrumentation()
+                .AddHttpClientInstrumentation()
+                .AddOtlpExporter(option =>
+                {
+                    option.Endpoint = new Uri(aspireDashboard);
+                });
+        });
+
+    builder.Logging.AddOpenTelemetry(logging =>
+    {
+        logging
+            .AddOtlpExporter(option =>
+            {
+                option.Endpoint = new Uri(aspireDashboard);
+            });
+    });
+}
 
 var app = builder.Build();
 

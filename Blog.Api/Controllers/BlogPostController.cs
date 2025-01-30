@@ -8,15 +8,19 @@ namespace Blog.Api.Controllers;
 public class BlogPostController : ControllerBase
 {
     private readonly IBlogPostRepository _blogPostRepository;
+    private readonly ILogger<BlogPostController> _logger;
 
-    public BlogPostController(IBlogPostRepository blogPostRepository)
+    public BlogPostController(IBlogPostRepository blogPostRepository, ILogger<BlogPostController> logger)
     {
         _blogPostRepository = blogPostRepository;
+        _logger = logger;
     }
 
     [HttpGet]
     public async Task<IActionResult> GetAsync(CancellationToken cancellationToken)
     {
+        _logger.LogInformation("Getting all blog posts");
+
         var posts = await _blogPostRepository.GetAllPostsAsync(cancellationToken);
 
         return Ok(posts);
