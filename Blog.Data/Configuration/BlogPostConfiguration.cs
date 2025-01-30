@@ -1,12 +1,12 @@
-using Blog.Core.Model;
+using Blog.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Blog.Data.Configuration;
 
-public class BlogPostConfiguration : IEntityTypeConfiguration<BlogPost>
+public class BlogPostConfiguration : IEntityTypeConfiguration<BlogPostModel>
 {
-    public void Configure(EntityTypeBuilder<BlogPost> builder)
+    public void Configure(EntityTypeBuilder<BlogPostModel> builder)
     {
         builder.HasKey(c => c.Id);
 

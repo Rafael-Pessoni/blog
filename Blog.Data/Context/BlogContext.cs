@@ -1,5 +1,6 @@
-using Blog.Core.Model;
+using Blog.Core.Entities;
 using Blog.Data.Configuration;
+using Blog.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Blog.Data.Context;
@@ -11,8 +12,8 @@ public class BlogContext : DbContext
 
     }
 
-    public DbSet<BlogPost> BlogPosts { get; set; }
-    public DbSet<Comment> Comments { get; set; }
+    public DbSet<BlogPostModel> BlogPosts { get; set; }
+    public DbSet<CommentModel> Comments { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

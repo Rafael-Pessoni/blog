@@ -1,10 +1,11 @@
 
-using Blog.Core.Model;
+using Blog.Core.Entities;
 
 namespace Blog.Core.Repositories;
 
 public interface IBlogPostRepository
 {
-    Task<IEnumerable<BlogPost>> GetAllPostsAsync(CancellationToken cancellationToken);
-    Task AddPostAsync(BlogPost post, CancellationToken cancellationToken);
+    Task<IEnumerable<BlogPost>> GetAllAsync(CancellationToken cancellationToken);
+    Task<BlogPost?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+    Task AddAsync(BlogPost post, CancellationToken cancellationToken);
 }
