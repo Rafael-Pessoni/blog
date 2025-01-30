@@ -10,5 +10,17 @@ services:
     volumes:
       - sqlserver:/var/opt/mssql
 
+  blog:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: blog-api
+    ports:
+      - 7000:8080
+    depends_on:
+      - sqlserver
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Staging
+
 volumes:
   sqlserver:
