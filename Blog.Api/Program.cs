@@ -1,4 +1,5 @@
 using Blog.Api.Configurations;
+using Blog.Api.Configurations.Middlewares;
 using Blog.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using OpenTelemetry.Logs;
@@ -72,7 +73,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 app.MapControllers();
 
 app.Run();
