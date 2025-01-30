@@ -21,6 +21,8 @@ public class BlogContext : DbContext
             options.CommandTimeout(60);
         });
 
+        optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTrackingWithIdentityResolution);
+
         base.OnConfiguring(optionsBuilder);
     }
 

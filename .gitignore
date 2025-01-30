@@ -1,0 +1,17 @@
+.vs/
+.vscode/
+bin/
+obj/
+*/temp/
+*/wwwroot/temp/
+*/wwwroot/lib/
+*/wwwroot/dist/
+*/node_modules
+nfes/
+.env
+*.suo
+*.user
+.vs/
+[Bb]in/
+[Oo]bj/
+[Pp]ackages/
