@@ -8,6 +8,7 @@ public class BlogPostModel
     public required string Title { get; set; }
     public string Content { get; set; }
     public DateTime CreatedAt { get; set; }
+    public int? CommentsCount { get; set; }
 
     public ICollection<CommentModel>? Comments { get; set; }
 
@@ -24,6 +25,7 @@ public class BlogPostModel
 
     public BlogPost ToEntity()
     {
-        return new BlogPost(Id, Title, Content, CreatedAt, Comments?.Select(x => x.ToEntity()) ?? Enumerable.Empty<Comment>());
+        var comments = Comments?.Select(x => x.ToEntity()) ?? Enumerable.Empty<Comment>();
+        return new BlogPost(Id, Title, Content, CreatedAt, comments, CommentsCount ?? comments.Count());
     }
 }
