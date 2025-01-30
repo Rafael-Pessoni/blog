@@ -14,6 +14,8 @@ public class BlogPostConfiguration : IEntityTypeConfiguration<BlogPostModel>
         builder.Property(c => c.Content).IsRequired();
         builder.Property(c => c.CreatedAt).IsRequired();
 
+        builder.Ignore(x => x.CommentsCount);
+
         builder.HasMany(c => c.Comments)
             .WithOne(bp => bp.BlogPost)
             .HasForeignKey(c => c.BlogPostId);

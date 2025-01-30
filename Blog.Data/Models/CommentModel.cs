@@ -8,7 +8,7 @@ public class CommentModel
     public required string Content { get; set; }
     public DateTime CreatedAt { get; set; }
     public Guid BlogPostId { get; set; }
-    public BlogPostModel BlogPost { get; set; }
+    public BlogPostModel? BlogPost { get; set; }
 
     public static CommentModel FromEntity(Comment comment)
     {

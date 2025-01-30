@@ -30,7 +30,7 @@ public class BlogPostRepository : IBlogPostRepository
             Id = x.Id,
             Title = x.Title,
             CreatedAt = x.CreatedAt,
-            CommentsCount = x.Comments != null ? x.Comments.Count() : 0
+            CommentsCount = x.Comments.Count
         }).OrderByDescending(x => x.CreatedAt)
             .ToListAsync(cancellationToken);
 
