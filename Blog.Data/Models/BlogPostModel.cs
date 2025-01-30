@@ -9,7 +9,7 @@ public class BlogPostModel
     public string Content { get; set; }
     public DateTime CreatedAt { get; set; }
 
-    public IEnumerable<CommentModel>? Comments { get; set; }
+    public ICollection<CommentModel>? Comments { get; set; }
 
     public static BlogPostModel FromEntity(BlogPost post)
     {

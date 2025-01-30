@@ -20,10 +20,9 @@ public class BlogPostsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
+    public async Task<IActionResult> GetAllAsync(int? offset, int? limit, CancellationToken cancellationToken)
     {
-        //TODO: include pagination 
-        var posts = await _blogPostRepository.GetAllAsync(cancellationToken);
+        var posts = await _blogPostRepository.GetAllAsync(offset, limit, cancellationToken);
 
         var response = posts.Select(x => new GetAllBlogPostsResponse(x));
 
