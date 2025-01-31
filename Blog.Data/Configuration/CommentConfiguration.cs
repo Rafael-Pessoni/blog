@@ -12,6 +12,9 @@ public class CommentConfiguration : IEntityTypeConfiguration<CommentModel>
 
         builder.Property(c => c.Content).IsRequired().HasMaxLength(1000);
         builder.Property(c => c.CreatedAt).IsRequired();
+        builder.Property(c => c.BlogPostId).IsRequired();
+
+        builder.HasIndex(x => x.BlogPostId);
 
         builder.HasOne(c => c.BlogPost)
             .WithMany(bp => bp.Comments)
