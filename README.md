@@ -57,5 +57,5 @@ The `.github/workflows` folder contains the pipelines. These pipelines are creat
 - Add a pipeline for [code validation](https://github.com/marketplace/actions/official-sonarqube-scan).
 - Add authentication using [JWT tokens](https://jwt.io/).
 - Add [API versioning](https://restfulapi.net/versioning/).
-- And more rsrsrs.
+- And more :D.
 
