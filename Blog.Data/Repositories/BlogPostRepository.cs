@@ -46,7 +46,13 @@ public class BlogPostRepository : IBlogPostRepository
                 Title = x.Title,
                 Content = x.Content,
                 CreatedAt = x.CreatedAt,
-                Comments = x.Comments
+                Comments = x.Comments.Select(c => new CommentModel
+                {
+                    Id = c.Id,
+                    Content = c.Content,
+                    CreatedAt = c.CreatedAt,
+                    BlogPostId = c.BlogPostId
+                }).ToList()
             }).FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
 
         return blogPost?.ToEntity();
