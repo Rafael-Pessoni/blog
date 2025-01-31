@@ -3,6 +3,7 @@ using Blog.Api.DataModels.BlogPosts;
 using Blog.Api.Helpers;
 using Blog.Core.Entities;
 using Blog.Core.Repositories;
+using Blog.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Blog.Api.Controllers;
@@ -11,11 +12,13 @@ namespace Blog.Api.Controllers;
 public class BlogPostsController : ControllerBase
 {
     private readonly IBlogPostRepository _blogPostRepository;
+    private readonly IBlogPostService _blogPostService;
     private readonly INotification _notification;
 
-    public BlogPostsController(IBlogPostRepository blogPostRepository, INotification notification)
+    public BlogPostsController(IBlogPostRepository blogPostRepository, IBlogPostService blogPostService, INotification notification)
     {
         _blogPostRepository = blogPostRepository;
+        _blogPostService = blogPostService;
         _notification = notification;
     }
 
@@ -48,7 +51,7 @@ public class BlogPostsController : ControllerBase
             return BadRequest(new DefaultResult<BlogPost>(_notification.Get()));
 
         var post = new BlogPost(model.Title, model.Content);
-        await _blogPostRepository.AddAsync(post, cancellationToken);
+        await _blogPostService.CreateBlogPostAsync(post, cancellationToken);
 
         var response = new PostBlogPostResponse(post);
 

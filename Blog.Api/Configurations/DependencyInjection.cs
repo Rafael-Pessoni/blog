@@ -1,5 +1,6 @@
 using Blog.Api.Helpers;
 using Blog.Core.Repositories;
+using Blog.Core.Services;
 using Blog.Data.Context;
 using Blog.Data.Repositories;
 
@@ -12,6 +13,8 @@ public static class DependencyInjection
         services.AddScoped<INotification, Notification>();
 
         services.AddScoped<BlogContext>();
+
+        services.AddScoped<IBlogPostService, BlogPostService>();
 
         services.AddScoped<IBlogPostRepository, BlogPostRepository>();
         services.AddScoped<ICommentRepository, CommentRepository>();
